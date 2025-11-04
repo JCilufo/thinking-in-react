@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-import { MAX_PRODUCT_PRICE } from "../constants";
+import { HIGHEST_PRICE_OF_PRODUCTS } from "../constants";
 
 export default function useFilters() {
   const [searchQuery, setSearchQuery] = useState("");
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sortBy, setSortBy] = useState("category");
-  const [maxPrice, setMaxPrice] = useState(MAX_PRODUCT_PRICE);
+  const [maxPrice, setMaxPrice] = useState(HIGHEST_PRICE_OF_PRODUCTS);
 
   const clearFilters = () => {
     setSearchQuery("");
     setInStockOnly(false);
     setSortBy("category");
-    setMaxPrice(MAX_PRODUCT_PRICE);
+    setMaxPrice(HIGHEST_PRICE_OF_PRODUCTS);
   };
 
   return {

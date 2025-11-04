@@ -9,7 +9,7 @@ const TEST_PRODUCTS = [
   { name: "lettuce", price: "$3", category: "Vegetables", stocked: false },
   { name: "basil", price: "$4.50", category: "Herbs", stocked: true },
 ];
-const MAX_PRODUCT_PRICE = Math.max(
+const HIGHEST_PRICE_OF_PRODUCTS = Math.max(
   ...TEST_PRODUCTS.map((p) => parsePrice(p.price))
 ); // $4.50
 
@@ -27,8 +27,8 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "dragon",
         inStockOnly: false,
-        maxPrice: MAX_PRODUCT_PRICE,
-        maxProductPrice: MAX_PRODUCT_PRICE,
+        maxPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "dragon"');
   });
@@ -38,8 +38,8 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "",
         inStockOnly: true,
-        maxPrice: MAX_PRODUCT_PRICE,
-        maxProductPrice: MAX_PRODUCT_PRICE,
+        maxPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe("No products in stock");
   });
@@ -52,7 +52,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "",
         inStockOnly: false,
         maxPrice: INPUT_MAX_PRICE,
-        maxProductPrice: MAX_PRODUCT_PRICE,
+        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe(`No products under $${INPUT_MAX_PRICE}`);
   });
@@ -62,8 +62,8 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "apple",
         inStockOnly: true,
-        maxPrice: MAX_PRODUCT_PRICE,
-        maxProductPrice: MAX_PRODUCT_PRICE,
+        maxPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "apple" and in stock');
   });
@@ -74,7 +74,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "dragon",
         inStockOnly: true,
         maxPrice: 2,
-        maxProductPrice: MAX_PRODUCT_PRICE,
+        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "dragon", in stock and under $2');
   });

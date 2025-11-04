@@ -1,4 +1,4 @@
-import { MAX_PRODUCT_PRICE } from "../constants";
+import { HIGHEST_PRICE_OF_PRODUCTS } from "../constants";
 import { generateEmptyProductMessage, parsePrice } from "../lib";
 import useFilters from "./use-filters";
 
@@ -205,7 +205,7 @@ function ProductTable({
               searchQuery,
               inStockOnly,
               maxPrice,
-              maxProductPrice: MAX_PRODUCT_PRICE,
+              highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
             })}
           </p>
           <p className="text-sm">Try adjusting your filters</p>
@@ -241,7 +241,7 @@ function SearchBar({
     searchQuery ||
     inStockOnly ||
     sortBy !== "category" ||
-    maxPrice < MAX_PRODUCT_PRICE;
+    maxPrice < HIGHEST_PRICE_OF_PRODUCTS;
 
   return (
     <form className="mb-6 space-y-4">
@@ -288,7 +288,7 @@ function SearchBar({
             id="price-slider"
             type="range"
             min="1"
-            max={MAX_PRODUCT_PRICE}
+            max={HIGHEST_PRICE_OF_PRODUCTS}
             value={maxPrice}
             onChange={(e) => onMaxPriceChange(Number(e.target.value))}
             className="w-full h-2 bg-green-200 rounded-lg appearance-none cursor-pointer accent-green-600"

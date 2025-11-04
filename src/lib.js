@@ -2,19 +2,19 @@
  * @param {string} searchQuery
  * @param {boolean} inStockOnly
  * @param {number} maxPrice
- * @param {number} maxProductPrice
+ * @param {number} highestPriceOfProducts
  * @returns {string}
  */
 export const generateEmptyProductMessage = ({
   searchQuery,
   inStockOnly,
   maxPrice,
-  maxProductPrice,
+  highestPriceOfProducts,
 }) => {
   const conditions = [
     searchQuery && `matching "${searchQuery}"`,
     inStockOnly && "in stock",
-    maxPrice < maxProductPrice && `under $${maxPrice}`,
+    maxPrice < highestPriceOfProducts && `under $${maxPrice}`,
   ].filter(Boolean);
 
   if (!conditions.length) return "No products found";
