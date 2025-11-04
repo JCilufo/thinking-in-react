@@ -28,7 +28,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "dragon",
         inStockOnly: false,
         maxPriceSlider: HIGHEST_PRICE_OF_PRODUCTS,
-        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "dragon"');
   });
@@ -39,7 +39,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "",
         inStockOnly: true,
         maxPriceSlider: HIGHEST_PRICE_OF_PRODUCTS,
-        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe("No products in stock");
   });
@@ -52,7 +52,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "",
         inStockOnly: false,
         maxPriceSlider: INPUT_MAX_PRICE,
-        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe(`No products under $${INPUT_MAX_PRICE}`);
   });
@@ -63,7 +63,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "apple",
         inStockOnly: true,
         maxPriceSlider: HIGHEST_PRICE_OF_PRODUCTS,
-        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "apple" and in stock');
   });
@@ -74,7 +74,7 @@ describe("generateEmptyProductMessage", () => {
         searchQuery: "dragon",
         inStockOnly: true,
         maxPriceSlider: 2,
-        maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "dragon", in stock and under $2');
   });
