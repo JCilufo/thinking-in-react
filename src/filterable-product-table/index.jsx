@@ -223,7 +223,7 @@ function ProductTable({
  * @param {(text: string) => void} onSearchQueryChange
  * @param {(checked: boolean) => void} onInStockOnlyChange
  * @param {(sort: string) => void} onSortByChange
- * @param {(price: number) => void} onMaxPriceChange
+ * @param {(price: number) => void} onMaxPriceSliderChange
  * @param {() => void} onClearFilters
  */
 function SearchBar({
@@ -234,7 +234,7 @@ function SearchBar({
   onSearchQueryChange,
   onInStockOnlyChange,
   onSortByChange,
-  onMaxPriceChange,
+  onMaxPriceSliderChange,
   onClearFilters,
 }) {
   const hasActiveFilters =
@@ -290,7 +290,7 @@ function SearchBar({
             min="1"
             max={HIGHEST_PRICE_OF_PRODUCTS}
             value={maxPriceSlider}
-            onChange={(e) => onMaxPriceChange(Number(e.target.value))}
+            onChange={(e) => onMaxPriceSliderChange(Number(e.target.value))}
             className="w-full h-2 bg-green-200 rounded-lg appearance-none cursor-pointer accent-green-600"
           />
         </div>
