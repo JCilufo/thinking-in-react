@@ -27,7 +27,7 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "dragon",
         inStockOnly: false,
-        maxPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        maxPriceSlider: HIGHEST_PRICE_OF_PRODUCTS,
         maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "dragon"');
@@ -38,7 +38,7 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "",
         inStockOnly: true,
-        maxPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        maxPriceSlider: HIGHEST_PRICE_OF_PRODUCTS,
         maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe("No products in stock");
@@ -51,7 +51,7 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "",
         inStockOnly: false,
-        maxPrice: INPUT_MAX_PRICE,
+        maxPriceSlider: INPUT_MAX_PRICE,
         maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe(`No products under $${INPUT_MAX_PRICE}`);
@@ -62,7 +62,7 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "apple",
         inStockOnly: true,
-        maxPrice: HIGHEST_PRICE_OF_PRODUCTS,
+        maxPriceSlider: HIGHEST_PRICE_OF_PRODUCTS,
         maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "apple" and in stock');
@@ -73,7 +73,7 @@ describe("generateEmptyProductMessage", () => {
       generateEmptyProductMessage({
         searchQuery: "dragon",
         inStockOnly: true,
-        maxPrice: 2,
+        maxPriceSlider: 2,
         maxProductPrice: HIGHEST_PRICE_OF_PRODUCTS,
       })
     ).toBe('No products matching "dragon", in stock and under $2');

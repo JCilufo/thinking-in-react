@@ -10,11 +10,11 @@ export default function FilterableProductTable({ products }) {
     searchQuery,
     inStockOnly,
     sortBy,
-    maxPrice,
+    maxPriceSlider,
     setSearchQuery,
     setInStockOnly,
     setSortBy,
-    setMaxPrice,
+    setMaxPriceSlider,
     clearFilters,
   } = useFilters();
 
@@ -24,11 +24,11 @@ export default function FilterableProductTable({ products }) {
         searchQuery={searchQuery}
         inStockOnly={inStockOnly}
         sortBy={sortBy}
-        maxPrice={maxPrice}
+        maxPriceSlider={maxPriceSlider}
         onSearchQueryChange={setSearchQuery}
         onInStockOnlyChange={setInStockOnly}
         onSortByChange={setSortBy}
-        onMaxPriceChange={setMaxPrice}
+        onMaxPriceChange={setMaxPriceSlider}
         onClearFilters={clearFilters}
       />
       <ProductTable
@@ -36,7 +36,7 @@ export default function FilterableProductTable({ products }) {
         searchQuery={searchQuery}
         inStockOnly={inStockOnly}
         sortBy={sortBy}
-        maxPrice={maxPrice}
+        maxPriceSlider={maxPriceSlider}
       />
     </div>
   );
@@ -118,18 +118,18 @@ function ProductRow({ product }) {
  * @param {string} searchQuery
  * @param {boolean} inStockOnly
  * @param {string} sortBy
- * @param {number} maxPrice
+ * @param {number} maxPriceSlider
  */
 function ProductTable({
   products,
   searchQuery,
   inStockOnly,
   sortBy,
-  maxPrice,
+  maxPriceSlider,
 }) {
   const filteredAndSorted = products
     .filter((product) => {
-      const matchesPrice = parsePrice(product.price) <= maxPrice;
+      const matchesPrice = parsePrice(product.price) <= maxPriceSlider;
       const matchesSearch = product.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -204,7 +204,7 @@ function ProductTable({
             {generateEmptyProductMessage({
               searchQuery,
               inStockOnly,
-              maxPrice,
+              maxPriceSlider,
               highestPriceOfProducts: HIGHEST_PRICE_OF_PRODUCTS,
             })}
           </p>
@@ -219,7 +219,7 @@ function ProductTable({
  * @param {string} searchQuery
  * @param {boolean} inStockOnly
  * @param {string} sortBy
- * @param {number} maxPrice
+ * @param {number} maxPriceSlider
  * @param {(text: string) => void} onSearchQueryChange
  * @param {(checked: boolean) => void} onInStockOnlyChange
  * @param {(sort: string) => void} onSortByChange
@@ -230,7 +230,7 @@ function SearchBar({
   searchQuery,
   inStockOnly,
   sortBy,
-  maxPrice,
+  maxPriceSlider,
   onSearchQueryChange,
   onInStockOnlyChange,
   onSortByChange,
@@ -241,7 +241,7 @@ function SearchBar({
     searchQuery ||
     inStockOnly ||
     sortBy !== "category" ||
-    maxPrice < HIGHEST_PRICE_OF_PRODUCTS;
+    maxPriceSlider < HIGHEST_PRICE_OF_PRODUCTS;
 
   return (
     <form className="mb-6 space-y-4">
@@ -282,14 +282,14 @@ function SearchBar({
             htmlFor="price-slider"
             className="block text-sm font-medium text-green-800 mb-2"
           >
-            Max price: ${maxPrice}
+            Max price: ${maxPriceSlider}
           </label>
           <input
             id="price-slider"
             type="range"
             min="1"
             max={HIGHEST_PRICE_OF_PRODUCTS}
-            value={maxPrice}
+            value={maxPriceSlider}
             onChange={(e) => onMaxPriceChange(Number(e.target.value))}
             className="w-full h-2 bg-green-200 rounded-lg appearance-none cursor-pointer accent-green-600"
           />
