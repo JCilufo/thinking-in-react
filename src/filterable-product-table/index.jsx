@@ -7,11 +7,11 @@ import useFilters from "./use-filters";
  */
 export default function FilterableProductTable({ products }) {
   const {
-    filterText,
+    searchQuery,
     inStockOnly,
     sortBy,
     maxPrice,
-    setFilterText,
+    setSearchQuery,
     setInStockOnly,
     setSortBy,
     setMaxPrice,
@@ -21,11 +21,11 @@ export default function FilterableProductTable({ products }) {
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 border-2 border-green-200">
       <SearchBar
-        filterText={filterText}
+        SearchQuery={searchQuery}
         inStockOnly={inStockOnly}
         sortBy={sortBy}
         maxPrice={maxPrice}
-        onFilterTextChange={setFilterText}
+        onSearchQueryChange={setSearchQuery}
         onInStockOnlyChange={setInStockOnly}
         onSortByChange={setSortBy}
         onMaxPriceChange={setMaxPrice}
@@ -33,7 +33,7 @@ export default function FilterableProductTable({ products }) {
       />
       <ProductTable
         products={products}
-        filterText={filterText}
+        searchQuery={searchQuery}
         inStockOnly={inStockOnly}
         sortBy={sortBy}
         maxPrice={maxPrice}
@@ -115,18 +115,24 @@ function ProductRow({ product }) {
 
 /**
  * @param {{name: string, price: string, category: string, stocked: boolean}[]} products
- * @param {string} filterText
+ * @param {string} searchQuery
  * @param {boolean} inStockOnly
  * @param {string} sortBy
  * @param {number} maxPrice
  */
-function ProductTable({ products, filterText, inStockOnly, sortBy, maxPrice }) {
+function ProductTable({
+  products,
+  searchQuery,
+  inStockOnly,
+  sortBy,
+  maxPrice,
+}) {
   const filteredAndSorted = products
     .filter((product) => {
       const matchesPrice = parsePrice(product.price) <= maxPrice;
       const matchesSearch = product.name
         .toLowerCase()
-        .includes(filterText.toLowerCase());
+        .includes(searchQuery.toLowerCase());
       const matchesStock = !inStockOnly || product.stocked;
 
       return matchesSearch && matchesStock && matchesPrice;
@@ -195,12 +201,12 @@ function ProductTable({ products, filterText, inStockOnly, sortBy, maxPrice }) {
         <div className="text-center py-12 text-gray-500">
           <p className="text-4xl mb-4">🥺</p>
           <p className="text-lg font-medium">
-            {generateEmptyProductMessage(
-              filterText,
+            {generateEmptyProductMessage({
+              searchQuery,
               inStockOnly,
               maxPrice,
-              MAX_PRODUCT_PRICE
-            )}
+              maxProductPrice: MAX_PRODUCT_PRICE,
+            })}
           </p>
           <p className="text-sm">Try adjusting your filters</p>
         </div>
@@ -210,29 +216,29 @@ function ProductTable({ products, filterText, inStockOnly, sortBy, maxPrice }) {
 }
 
 /**
- * @param {string} filterText
+ * @param {string} searchQuery
  * @param {boolean} inStockOnly
  * @param {string} sortBy
  * @param {number} maxPrice
- * @param {(text: string) => void} onFilterTextChange
+ * @param {(text: string) => void} onSearchQueryChange
  * @param {(checked: boolean) => void} onInStockOnlyChange
  * @param {(sort: string) => void} onSortByChange
  * @param {(price: number) => void} onMaxPriceChange
  * @param {() => void} onClearFilters
  */
 function SearchBar({
-  filterText,
+  searchQuery,
   inStockOnly,
   sortBy,
   maxPrice,
-  onFilterTextChange,
+  onSearchQueryChange,
   onInStockOnlyChange,
   onSortByChange,
   onMaxPriceChange,
   onClearFilters,
 }) {
   const hasActiveFilters =
-    filterText ||
+    searchQuery ||
     inStockOnly ||
     sortBy !== "category" ||
     maxPrice < MAX_PRODUCT_PRICE;
@@ -245,10 +251,10 @@ function SearchBar({
       <input
         id="search-input"
         type="search"
-        value={filterText}
+        value={searchQuery}
         placeholder="Search fresh produce..."
         onChange={(e) => {
-          onFilterTextChange(e.target.value);
+          onSearchQueryChange(e.target.value);
         }}
         className="w-full px-4 py-3 border-2 border-green-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
       />
