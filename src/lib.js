@@ -6,7 +6,7 @@
  * @returns {string}
  */
 export const generateEmptyProductMessage = (
-  filterText,
+  searchQuery,
   inStockOnly,
   maxPrice,
   maxProductPrice
